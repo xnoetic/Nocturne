@@ -128,3 +128,10 @@ LLM token 成本走用户自己的 NyxID 凭证，Nocturne 无需托管 API key�
 - 需要用户 id 时 **只** 从 `X-NyxID-User-Id` header 拿；不要自己发 id、不要信任 body 里的 user 字段。
 - 写存储代码时记得 chrono-storage 没鉴权 —— 别把它的地址写到任何对外文档里，别让它的端口监听到公网。
 - 技术栈与 chrono-storage 对齐（TypeScript + Bun）能复用 ops 约定（Dockerfile 规约、`/health`、`/openapi.json` 等参见 `../chrono-storage/CLAUDE.md`）。
+
+## 验证不依赖 GitHub CI
+
+2026-11-25 起，本仓库不用 GitHub Actions 做验证，也不用它构建、发布或部署（发布 GitHub Pages 除外）。`.github/workflows/` 里只允许放发布 GitHub Pages 的工作流，别的工作流不要新建。
+
+- 测试、检查、构建都在本机（或经 calltable `ct` 在验证机）上跑，推送前自己跑完。
+- 提交和推送说明里写实际跑过的命令和环境，不写「CI 通过」，也不要等 CI 结果。
